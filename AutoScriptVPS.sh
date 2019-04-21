@@ -106,19 +106,20 @@ sed -i '/Port 22/a Port  81' /etc/ssh/sshd_config
 sed -i 's/Port 22/Port  22/g' /etc/ssh/sshd_config
 service ssh restart
 
-# Install OpenVPN
+#install OpenVPN
 cp -r /usr/share/easy-rsa/ /etc/openvpn
 mkdir /etc/openvpn/easy-rsa/keys
+# replace bits
 sed -i 's|export KEY_COUNTRY="US"|export KEY_COUNTRY="MY"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_PROVINCE="CA"|export KEY_PROVINCE="KL"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_CITY="SanFrancisco"|export KEY_CITY="KL"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_ORG="Fort-Funston"|export KEY_ORG="ANONGHOST"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_EMAIL="me@myhost.mydomain"|export KEY_EMAIL="ANONGHOST@gmail.com"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_OU="MyOrganizationalUnit"|export KEY_OU="ANONGHOST"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_NAME="EasyRSA"|export KEY_NAME="AzRoY"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_OU=changeme|export KEY_OU=AzRoY|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_PROVINCE="CA"|export KEY_PROVINCE="AZROY"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_CITY="SanFrancisco"|export KEY_CITY="AZROY"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_ORG="Fort-Funston"|export KEY_ORG="AZROY"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_EMAIL="me@myhost.mydomain"|export KEY_EMAIL="faizkapak369@gmail.com"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_OU="MyOrganizationalUnit"|export KEY_OU="AZROY"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_NAME="EasyRSA"|export KEY_NAME="AZROY"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_OU=changeme|export KEY_OU=AZROY|' /etc/openvpn/easy-rsa/vars
 
-# Create Diffie-Helman Pem
+#Create Diffie-Helman Pem
 openssl dhparam -out /etc/openvpn/dh2048.pem 2048
 
 # Create PKI
@@ -128,11 +129,11 @@ cd /etc/openvpn/easy-rsa
 export EASY_RSA="${EASY_RSA:-.}"
 "$EASY_RSA/pkitool" --initca $*
 
-# Create key server
+# create key server
 export EASY_RSA="${EASY_RSA:-.}"
 "$EASY_RSA/pkitool" --server server
 
-# Setting KEY CN
+# setting KEY CN
 export EASY_RSA="${EASY_RSA:-.}"
 "$EASY_RSA/pkitool" client
 
