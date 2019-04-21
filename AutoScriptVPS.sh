@@ -59,7 +59,7 @@ apt-get -y --purge remove sendmail*;
 apt-get -y --purge remove bind9*;
 
 # Install Essential Packages
-apt-get install openssl lsb-release scrot bmon iftop htop nmap axel sysv-rc-conf dnsutils bc nethogs less screen psmisc apt-file ptunnel ngrep mtr git zsh mrtg snmp snmpd snmp-mibs-downloader rsyslog debsums openvpn iptables nginx php7.0-fpm php7.0-cli stunnel4 squid3 dropbear easy-rsa vnstat ufw build-essential fail2ban zip traceroute rkhunter whois unzip unrar -y
+apt-get install openssl lsb-release scrot bmon iftop htop nmap axel sysv-rc-conf dnsutils bc nethogs less screen psmisc apt-file ptunnel ngrep mtr git zsh mrtg snmp snmpd  rsyslog debsums openvpn iptables nginx php7.0-fpm php7.0-cli stunnel4 squid3 dropbear easy-rsa vnstat ufw build-essential fail2ban zip traceroute rkhunter whois unzip -y
 
 # disable exim
 service exim4 stop
