@@ -48,7 +48,7 @@ apt-get -y --purge remove sendmail*;
 apt-get -y --purge remove bind9*;
 
 # set repo
-wget -O /etc/apt/sources.list "https://raw.githubusercontent.com/azroy369/Debain9/master/Repo/source.list.debian8?token=AJGGYQP2JLURN23EXTVR7HK4YXTQ6"
+wget -O /etc/apt/sources.list "https://raw.githubusercontent.com/azroy369/Debain9/master/Repo/source.list.debian8"
 wget "http://www.dotdeb.org/dotdeb.gpg"
 cat dotdeb.gpg | apt-key add -;rm dotdeb.gpg
 
@@ -70,7 +70,7 @@ service vnstat restart
 cd
 
 # Install Screenfetch
-wget -O screenfetch "https://raw.githubusercontent.com/azroy369/Debain9/master/Others/screenfetch?token=AJGGYQNWC5CLJKB2AAW7PZ24YXXI2"
+wget -O screenfetch "https://raw.githubusercontent.com/azroy369/Debain9/master/Others/screenfetch"
 mv screenfetch /usr/bin
 cd /usr/bin
 chmod +x /usr/bin/screenfetch
@@ -83,12 +83,12 @@ echo "screenfetch" >> .bash_profile
 cd
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
-wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/azroy369/Debain9/master/Nginx/nginx.conf?token=AJGGYQOLBRHPXI2ZTNWNGBC4YXVLY"
+wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/azroy369/Debain9/master/Nginx/nginx.conf"
 mkdir -p /home/vps/public_html
 echo "<h1><center>AutoScriptVPS by AzRoY</center></h1>" > /home/vps/public_html/index.html
 echo "<h3><center>For More Info Visit My Channel <a href="https://t.me/VPNBYAZROY"></a></center><h3>" >> /home/vps/public_html/index.html
 echo "<h3><center>You Can Also Contact Me at <a href="https://t.me/@AzRoY369"</a></center></h3>" >> /home/vps/public_html/index.html
-wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/azroy369/Debain9/master/Nginx/vps.conf?token=AJGGYQNISQ45ALA43IBK2SS4YXVOW"
+wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/azroy369/Debain9/master/Nginx/vps.conf"
 sed -i 's/listen = \/var\/run\/php7-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php7/fpm/pool.d/www.conf
 service php7-fpm restart
 service nginx restart
@@ -139,11 +139,11 @@ cp /etc/openvpn/easy-rsa/keys/ca.crt /etc/openvpn/ca.crt
 
 # Setting Server
 cd /etc/openvpn/
-wget "https://raw.githubusercontent.com/azroy369/Debain9/master/OpenVPN/server.conf?token=AJGGYQL427VRYNXWLG27ZGK4YX5I4"
+wget "https://raw.githubusercontent.com/azroy369/Debain9/master/OpenVPN/server.conf"
 
 #Create OpenVPN Config
 cd /home/vps/public_html/
-wget "https://raw.githubusercontent.com/azroy369/Debain9/master/OpenVPN/client.ovpn?token=AJGGYQL4WVMVRKSLDPJGQ4S4YX5J4"
+wget "https://raw.githubusercontent.com/azroy369/Debain9/master/OpenVPN/client.ovpn"
 sed -i $MYIP2 /home/vps/public_html/client.ovpn;
 echo '<ca>' >> /home/vps/public_html/client.ovpn
 cat /etc/openvpn/ca.crt >> /home/vps/public_html/client.ovpn
@@ -165,7 +165,7 @@ ufw allow 1194/tcp
 sed -i 's|DEFAULT_INPUT_POLICY="DROP"|DEFAULT_INPUT_POLICY="ACCEPT"|' /etc/default/ufw
 sed -i 's|DEFAULT_FORWARD_POLICY="DROP"|DEFAULT_FORWARD_POLICY="ACCEPT"|' /etc/default/ufw
 cd /etc/ufw/
-wget "https://raw.githubusercontent.com/azroy369/Debain9/master/OpenVPN/before.rules?token=AJGGYQIA7EYFIDGVXXZLWBK4YX5LC"
+wget "https://raw.githubusercontent.com/azroy369/Debain9/master/OpenVPN/before.rules"
 cd
 ufw enable
 ufw status
@@ -197,7 +197,7 @@ rm -rf ddos-deflate-master.zip
 
 # Banner
 rm /etc/issue.net
-wget -O /etc/issue.net "https://raw.githubusercontent.com/azroy369/Debain9/master/Others/issue.net?token=AJGGYQOQHUKGD7FPQF6L5KK4YX5TY"
+wget -O /etc/issue.net "https://raw.githubusercontent.com/azroy369/Debain9/master/Others/issue.net"
 sed -i 's@#Banner@Banner@g' /etc/ssh/sshd_config
 sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/issue.net"@g' /etc/default/dropbear
 service ssh restart
@@ -217,7 +217,7 @@ service dropbear restart
 # Install Squid3
 cd
 apt-get -y install squid
-wget -O /etc/squid3/squid.conf "https://raw.githubusercontent.com/azroy369/Debain9/master/Squid/squid3.conf?token=AJGGYQLIMYFVHOGPCCHWPX24YX5VK"
+wget -O /etc/squid3/squid.conf "https://raw.githubusercontent.com/azroy369/Debain9/master/Squid/squid3.conf"
 sed -i $MYIP2 /etc/squid/squid.conf
 service squid restart
 
@@ -229,8 +229,8 @@ service webmin restart
 
 # Install Stunnel
 apt-get -y install stunnel4
-wget -O /etc/stunnel/stunnel.pem "https://raw.githubusercontent.com/azroy369/Debain9/master/Stunnel/stunnel.pem?token=AJGGYQKSPWYO5ZFKJV3GDGC4YX5YY"
-wget -O /etc/stunnel/stunnel.conf "https://raw.githubusercontent.com/azroy369/Debain9/master/Stunnel/stunnel.conf?token=AJGGYQMW3PCPQ3SCRJUJ7WS4YX5XO"
+wget -O /etc/stunnel/stunnel.pem "https://raw.githubusercontent.com/azroy369/Debain9/master/Stunnel/stunnel.pem"
+wget -O /etc/stunnel/stunnel.conf "https://raw.githubusercontent.com/azroy369/Debain9/master/Stunnel/stunnel.conf"
 sed -i $MYIP2 /etc/stunnel/stunnel.conf
 sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
 service stunnel4 restart
