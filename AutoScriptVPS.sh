@@ -21,6 +21,17 @@ MYIP2="s/xxxxxxxxx/$MYIP/g";
 # Root Directory
 cd
 
+# set repo
+cat > /etc/apt/sources.list <<END2
+deb http://security.debian.org/ jessie/updates main contrib non-free
+deb-src http://security.debian.org/ jessie/updates main contrib non-free
+deb http://http.us.debian.org/debian jessie main contrib non-free
+deb http://packages.dotdeb.org jessie all
+deb-src http://packages.dotdeb.org jessie all
+END2
+wget "http://www.dotdeb.org/dotdeb.gpg"
+cat dotdeb.gpg | apt-key add -;rm dotdeb.gpg
+
 # Disable IPV6
 echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6
 sed -i '$ i\echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6' /etc/rc.local
@@ -46,11 +57,6 @@ apt-get -y --purge remove samba*;
 apt-get -y --purge remove apache2*;
 apt-get -y --purge remove sendmail*;
 apt-get -y --purge remove bind9*;
-
-# set repo
-wget -O /etc/apt/sources.list "https://raw.githubusercontent.com/azroy369/Debain9/master/Repo/source.list.debian8"
-wget "http://www.dotdeb.org/dotdeb.gpg"
-cat dotdeb.gpg | apt-key add -;rm dotdeb.gpg
 
 # Install Essential Packages
 apt-get install openssl lsb-release scrot bmon iftop htop nmap axel sysv-rc-conf dnsutils bc nethogs less screen psmisc apt-file ptunnel ngrep mtr git zsh mrtg snmp snmpd snmp-mibs-downloader rsyslog debsums openvpn iptables nginx php7.0-fpm php7.0-cli stunnel4 squid3 dropbear easy-rsa vnstat ufw build-essential fail2ban zip traceroute rkhunter whois unzip unrar -y
