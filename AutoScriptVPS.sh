@@ -49,7 +49,7 @@ apt-get -y  remove sendmail*;
 apt-get -y  remove bind9*;
 
 # Install Essential Packages
-apt-get install stunnel4 squid3 openssl lsb-release scrot bmon iftop htop nmap axel sysv-rc-conf dnsutils bc nethogs less screen psmisc apt-file ptunnel ngrep mtr git zsh mrtg snmp snmpd  rsyslog debsums openvpn iptables nginx php7.0-fpm php7.0-cli stunnel4 squid3 dropbear easy-rsa vnstat ufw build-essential fail2ban zip traceroute rkhunter whois unzip -y
+apt-get install  dnsutils dsniff unrar stunnel4 squid3 openssl lsb-release scrot bmon iftop htop nmap axel sysv-rc-conf dnsutils bc nethogs less screen psmisc apt-file ptunnel ngrep mtr git zsh mrtg snmp snmpd  rsyslog debsums openvpn iptables nginx php7.0-fpm php7.0-cli stunnel4 squid3 dropbear easy-rsa vnstat ufw build-essential fail2ban zip traceroute rkhunter whois unzip -y
 
 # disable exim
 service exim4 stop
@@ -154,7 +154,6 @@ cd
 # Restart OpenVPN
 /etc/init.d/openvpn restart
 service openvpn start
-service openvpn status
 
 # Setting USW
 apt-get install ufw
@@ -165,8 +164,6 @@ sed -i 's|DEFAULT_FORWARD_POLICY="DROP"|DEFAULT_FORWARD_POLICY="ACCEPT"|' /etc/d
 cd /etc/ufw/
 wget "https://raw.githubusercontent.com/azroy369/Debain9/master/OpenVPN/before.rules"
 cd
-ufw enable
-ufw status
 ufw disable
 
 # set ipv4 forward
@@ -185,7 +182,6 @@ screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300
 
 # Install DDOS Deflate
 cd
-apt-get -y install dnsutils dsniff
 wget "https://github.com/azroy369/Debain9/raw/master/Others/ddos-deflate-master.zip"
 unzip ddos-deflate-master.zip
 cd ddos-deflate-master
@@ -213,8 +209,8 @@ service dropbear restart
 
 # Install 
 cd
-wget -O /etc/squid3/squid.conf "https://raw.githubusercontent.com/azroy369/Debain9/master/Squid/squid3.conf"
-sed -i $MYIP2 /etc/squid/squid.conf
+wget -O /etc/squid3/squid.conf "https://raw.githubusercontent.com/azroy369/Debain9/master/Squid/squid.conf"
+sed -i $MYIP2 /etc/squid3/squid.conf
 service squid restart
 
 # Install WebMin
@@ -229,8 +225,6 @@ wget -O /etc/stunnel/stunnel.conf "https://raw.githubusercontent.com/azroy369/De
 sed -i $MYIP2 /etc/stunnel/stunnel.conf
 sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
 service stunnel4 restart
-
-
 
 # Install Fail2Ban
 apt-get -y install fail2ban;
@@ -323,44 +317,44 @@ apt-get -y install ruby
 gem install lolcat
 
 # Download Commands
-cd /usr/bin
+cd /usr/local/bin/
 wget https://github.com/azroy369/Debain9/raw/master/Menu/Menu.rar
-tar -xzvf AutoScript_Menu.tar.gz
-rm AutoScript_Menu.tar.gz
-sed -i -e 's/\r$//' accounts.sh
-sed -i -e 's/\r$//' bench-network.sh
-sed -i -e 's/\r$//' clearcache.sh
-sed -i -e 's/\r$//' connections.sh
-sed -i -e 's/\r$//' create.sh
-sed -i -e 's/\r$//' create_random.sh
-sed -i -e 's/\r$//' create_trial.sh
-sed -i -e 's/\r$//' delete_expired.sh
-sed -i -e 's/\r$//' diagnose.sh
-sed -i -e 's/\r$//' edit_dropbear.sh
-sed -i -e 's/\r$//' edit_openssh.sh
-sed -i -e 's/\r$//' edit_openvpn.sh
-sed -i -e 's/\r$//' edit_ports.sh
-sed -i -e 's/\r$//' edit_squid.sh
-sed -i -e 's/\r$//' edit_stunnel4.sh
-sed -i -e 's/\r$//' locked_list.sh
-sed -i -e 's/\r$//' menu.sh
-sed -i -e 's/\r$//' options.sh
-sed -i -e 's/\r$//' ram.sh
-sed -i -e 's/\r$//' reboot_sys.sh
-sed -i -e 's/\r$//' reboot_sys_auto.sh
-sed -i -e 's/\r$//' restart_services.sh
-sed -i -e 's/\r$//' server.sh
-sed -i -e 's/\r$//' set_multilogin_autokill.sh
-sed -i -e 's/\r$//' set_multilogin_autokill_lib.sh
-sed -i -e 's/\r$//' show_ports.sh
-sed -i -e 's/\r$//' speedtest.sh
-sed -i -e 's/\r$//' user_delete.sh
-sed -i -e 's/\r$//' user_details.sh
-sed -i -e 's/\r$//' user_details_lib.sh
-sed -i -e 's/\r$//' user_extend.sh
-sed -i -e 's/\r$//' user_list.sh
-sed -i -e 's/\r$//' user_lock.sh
-sed -i -e 's/\r$//' user_unlock.sh
+unrar e Menu.rar
+rm Menu.rar
+sed -i -e 's/\r$//' accounts
+sed -i -e 's/\r$//' bench-network
+sed -i -e 's/\r$//' clearcache
+sed -i -e 's/\r$//' connections
+sed -i -e 's/\r$//' create
+sed -i -e 's/\r$//' create_random
+sed -i -e 's/\r$//' create_trial
+sed -i -e 's/\r$//' delete_expired
+sed -i -e 's/\r$//' diagnose
+sed -i -e 's/\r$//' edit_dropbear
+sed -i -e 's/\r$//' edit_openssh
+sed -i -e 's/\r$//' edit_openvpn
+sed -i -e 's/\r$//' edit_ports
+sed -i -e 's/\r$//' edit_squid
+sed -i -e 's/\r$//' edit_stunnel4
+sed -i -e 's/\r$//' locked_list
+sed -i -e 's/\r$//' menu
+sed -i -e 's/\r$//' options
+sed -i -e 's/\r$//' ram
+sed -i -e 's/\r$//' reboot_sys
+sed -i -e 's/\r$//' reboot_sys_auto
+sed -i -e 's/\r$//' restart_services
+sed -i -e 's/\r$//' server
+sed -i -e 's/\r$//' set_multilogin_autokill
+sed -i -e 's/\r$//' set_multilogin_autokill_lib
+sed -i -e 's/\r$//' show_ports
+sed -i -e 's/\r$//' speedtest
+sed -i -e 's/\r$//' user_delete
+sed -i -e 's/\r$//' user_details
+sed -i -e 's/\r$//' user_details_lib
+sed -i -e 's/\r$//' user_extend
+sed -i -e 's/\r$//' user_list
+sed -i -e 's/\r$//' user_lock
+sed -i -e 's/\r$//' user_unlock
 
 # AutoReboot Tools
 echo "10 0 * * * root /usr/local/bin/reboot_sys" > /etc/cron.d/reboot_sys
@@ -368,7 +362,7 @@ echo "0 1 * * * root delete_expired" > /etc/cron.d/delete_expired
 echo "*0 */2 * * * root clearcache" > /etc/cron.d/clearcache
 
 # Set Permissions
-cd /usr/bin
+cd /usr/local/bin/
 chmod +x create
 chmod +x accounts
 chmod +x create
