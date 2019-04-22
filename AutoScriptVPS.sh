@@ -6,6 +6,7 @@
 wget -O - https://swupdate.openvpn.net/repos/repo-public.gpg|apt-key add -
 sleep 2
 echo "deb http://build.openvpn.net/debian/openvpn/release/2.4 stretch main" > /etc/apt/sources.list.d/openvpn-aptrepo.list
+
 #Requirement
 if [ ! -e /usr/bin/curl ]; then
     apt-get -y update && apt-get -y upgrade
@@ -42,13 +43,13 @@ sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
 service ssh restart
 
 # remove unused
-apt-get -y --purge remove samba*;
-apt-get -y --purge remove apache2*;
-apt-get -y --purge remove sendmail*;
-apt-get -y --purge remove bind9*;
+apt-get -y  remove samba*;
+apt-get -y  remove apache2*;
+apt-get -y  remove sendmail*;
+apt-get -y  remove bind9*;
 
 # Install Essential Packages
-apt-get install openssl lsb-release scrot bmon iftop htop nmap axel sysv-rc-conf dnsutils bc nethogs less screen psmisc apt-file ptunnel ngrep mtr git zsh mrtg snmp snmpd  rsyslog debsums openvpn iptables nginx php7.0-fpm php7.0-cli stunnel4 squid3 dropbear easy-rsa vnstat ufw build-essential fail2ban zip traceroute rkhunter whois unzip -y
+apt-get install stunnel4 squid3 openssl lsb-release scrot bmon iftop htop nmap axel sysv-rc-conf dnsutils bc nethogs less screen psmisc apt-file ptunnel ngrep mtr git zsh mrtg snmp snmpd  rsyslog debsums openvpn iptables nginx php7.0-fpm php7.0-cli stunnel4 squid3 dropbear easy-rsa vnstat ufw build-essential fail2ban zip traceroute rkhunter whois unzip -y
 
 # disable exim
 service exim4 stop
@@ -113,6 +114,7 @@ openssl dhparam -out /etc/openvpn/dh2048.pem 2048
 
 # Create PKI
 cd /etc/openvpn/easy-rsa
+cp openssl-1.0.0.cnf openssl.cnf
 . ./vars
 ./clean-all
 export EASY_RSA="${EASY_RSA:-.}"
@@ -201,7 +203,6 @@ service dropbear restart
 
 
 # Install Dropbear
-apt-get -y install dropbear
 sed -i 's/NO_START=1/NO_START=0/g' /etc/default/dropbear
 sed -i 's/DROPBEAR_PORT=22/DROPBEAR_PORT=443/g' /etc/default/dropbear
 sed -i 's/DROPBEAR_EXTRA_ARGS=/DROPBEAR_EXTRA_ARGS="-p 82 -p 142"/g' /etc/default/dropbear
@@ -210,9 +211,8 @@ echo "/usr/sbin/nologin" >> /etc/shells
 service ssh restart
 service dropbear restart
 
-# Install Squid3
+# Install 
 cd
-apt-get -y install squid
 wget -O /etc/squid3/squid.conf "https://raw.githubusercontent.com/azroy369/Debain9/master/Squid/squid3.conf"
 sed -i $MYIP2 /etc/squid/squid.conf
 service squid restart
@@ -224,7 +224,6 @@ sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
 service webmin restart
 
 # Install Stunnel
-apt-get -y install stunnel4
 wget -O /etc/stunnel/stunnel.pem "https://raw.githubusercontent.com/azroy369/Debain9/master/Stunnel/stunnel.pem"
 wget -O /etc/stunnel/stunnel.conf "https://raw.githubusercontent.com/azroy369/Debain9/master/Stunnel/stunnel.conf"
 sed -i $MYIP2 /etc/stunnel/stunnel.conf
@@ -328,40 +327,40 @@ cd /usr/bin
 wget https://github.com/azroy369/Debain9/raw/master/Menu/Menu.rar
 tar -xzvf AutoScript_Menu.tar.gz
 rm AutoScript_Menu.tar.gz
-sed -i -e 's/\r$//' accounts
-sed -i -e 's/\r$//' bench-network
-sed -i -e 's/\r$//' clearcache
-sed -i -e 's/\r$//' connections
-sed -i -e 's/\r$//' create
-sed -i -e 's/\r$//' create_random
-sed -i -e 's/\r$//' create_trial
-sed -i -e 's/\r$//' delete_expired
-sed -i -e 's/\r$//' diagnose
-sed -i -e 's/\r$//' edit_dropbear
-sed -i -e 's/\r$//' edit_openssh
-sed -i -e 's/\r$//' edit_openvpn
-sed -i -e 's/\r$//' edit_ports
-sed -i -e 's/\r$//' edit_squid3
-sed -i -e 's/\r$//' edit_stunnel4
-sed -i -e 's/\r$//' locked_list
-sed -i -e 's/\r$//' menu
-sed -i -e 's/\r$//' options
-sed -i -e 's/\r$//' ram
-sed -i -e 's/\r$//' reboot_sys
-sed -i -e 's/\r$//' reboot_sys_auto
-sed -i -e 's/\r$//' restart_services
-sed -i -e 's/\r$//' server
-sed -i -e 's/\r$//' set_multilogin_autokill
-sed -i -e 's/\r$//' set_multilogin_autokill_lib
-sed -i -e 's/\r$//' show_ports
-sed -i -e 's/\r$//' speedtest
-sed -i -e 's/\r$//' user_delete
-sed -i -e 's/\r$//' user_details
-sed -i -e 's/\r$//' user_details_lib
-sed -i -e 's/\r$//' user_extend
-sed -i -e 's/\r$//' user_list
-sed -i -e 's/\r$//' user_lock
-sed -i -e 's/\r$//' user_unlock
+sed -i -e 's/\r$//' accounts.sh
+sed -i -e 's/\r$//' bench-network.sh
+sed -i -e 's/\r$//' clearcache.sh
+sed -i -e 's/\r$//' connections.sh
+sed -i -e 's/\r$//' create.sh
+sed -i -e 's/\r$//' create_random.sh
+sed -i -e 's/\r$//' create_trial.sh
+sed -i -e 's/\r$//' delete_expired.sh
+sed -i -e 's/\r$//' diagnose.sh
+sed -i -e 's/\r$//' edit_dropbear.sh
+sed -i -e 's/\r$//' edit_openssh.sh
+sed -i -e 's/\r$//' edit_openvpn.sh
+sed -i -e 's/\r$//' edit_ports.sh
+sed -i -e 's/\r$//' edit_squid.sh
+sed -i -e 's/\r$//' edit_stunnel4.sh
+sed -i -e 's/\r$//' locked_list.sh
+sed -i -e 's/\r$//' menu.sh
+sed -i -e 's/\r$//' options.sh
+sed -i -e 's/\r$//' ram.sh
+sed -i -e 's/\r$//' reboot_sys.sh
+sed -i -e 's/\r$//' reboot_sys_auto.sh
+sed -i -e 's/\r$//' restart_services.sh
+sed -i -e 's/\r$//' server.sh
+sed -i -e 's/\r$//' set_multilogin_autokill.sh
+sed -i -e 's/\r$//' set_multilogin_autokill_lib.sh
+sed -i -e 's/\r$//' show_ports.sh
+sed -i -e 's/\r$//' speedtest.sh
+sed -i -e 's/\r$//' user_delete.sh
+sed -i -e 's/\r$//' user_details.sh
+sed -i -e 's/\r$//' user_details_lib.sh
+sed -i -e 's/\r$//' user_extend.sh
+sed -i -e 's/\r$//' user_list.sh
+sed -i -e 's/\r$//' user_lock.sh
+sed -i -e 's/\r$//' user_unlock.sh
 
 # AutoReboot Tools
 echo "10 0 * * * root /usr/local/bin/reboot_sys" > /etc/cron.d/reboot_sys
