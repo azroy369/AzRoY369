@@ -3,6 +3,9 @@
 # ==================================================
 # Initializing Var
 
+wget -O - https://swupdate.openvpn.net/repos/repo-public.gpg|apt-key add -
+sleep 2
+echo "deb http://build.openvpn.net/debian/openvpn/release/2.4 stretch main" > /etc/apt/sources.list.d/openvpn-aptrepo.list
 #Requirement
 if [ ! -e /usr/bin/curl ]; then
     apt-get -y update && apt-get -y upgrade
@@ -21,26 +24,12 @@ MYIP2="s/xxxxxxxxx/$MYIP/g";
 # Root Directory
 cd
 
-# set repo
-cat > /etc/apt/sources.list <<END2
-deb http://security.debian.org/ jessie/updates main contrib non-free
-deb-src http://security.debian.org/ jessie/updates main contrib non-free
-deb http://http.us.debian.org/debian jessie main contrib non-free
-deb http://packages.dotdeb.org jessie all
-deb-src http://packages.dotdeb.org jessie all
-END2
-wget "http://www.dotdeb.org/dotdeb.gpg"
-cat dotdeb.gpg | apt-key add -;rm dotdeb.gpg
-
 # Disable IPV6
 echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6
-sed -i '$ i\echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6' /etc/rc.local
 
 #Add DNS Server ipv4
 echo "nameserver 1.1.1.1" > /etc/resolv.conf
 echo "nameserver 1.0.0.1" >> /etc/resolv.conf
-sed -i '$ i\echo "nameserver 1.1.1.1" > /etc/resolv.conf' /etc/rc.local
-sed -i '$ i\echo "nameserver 1.0.0.1" >> /etc/resolv.conf' /etc/rc.local
 
 # Install wget and curl
 apt-get update;apt-get -y install wget curl;
