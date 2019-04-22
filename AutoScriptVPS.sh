@@ -6,7 +6,11 @@
 wget -O - https://swupdate.openvpn.net/repos/repo-public.gpg|apt-key add -
 sleep 2
 echo "deb http://build.openvpn.net/debian/openvpn/release/2.4 stretch main" > /etc/apt/sources.list.d/openvpn-aptrepo.list
-
+echo "deb http://security.debian.org/ jessie/updates main contrib non-free" > /etc/apt/sources.list.d/openvpn-aptrepo.list
+echo "deb-src http://security.debian.org/ jessie/updates main contrib non-free" > /etc/apt/sources.list.d/openvpn-aptrepo.list
+echo "deb http://http.us.debian.org/debian jessie main contrib non-free" > /etc/apt/sources.list.d/openvpn-aptrepo.list
+echo "deb http://packages.dotdeb.org jessie all" > /etc/apt/sources.list.d/openvpn-aptrepo.list
+echo "deb-src http://packages.dotdeb.org jessie all" > /etc/apt/sources.list.d/openvpn-aptrepo.list
 #Requirement
 if [ ! -e /usr/bin/curl ]; then
     apt-get -y update && apt-get -y upgrade
@@ -86,7 +90,6 @@ echo "<h3><center>For More Info Visit My Channel <a href="https://t.me/VPNBYAZRO
 echo "<h3><center>You Can Also Contact Me at <a href="https://t.me/@AzRoY369"</a></center></h3>" >> /home/vps/public_html/index.html
 wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/azroy369/Debain9/master/Nginx/vps.conf"
 sed -i 's/listen = \/var\/run\/php7-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php7/fpm/pool.d/www.conf
-service php7-fpm restart
 service nginx restart
 
 # SSH Configuration
@@ -209,8 +212,8 @@ service dropbear restart
 
 # Install 
 cd
-wget -O /etc/squid3/squid.conf "https://raw.githubusercontent.com/azroy369/Debain9/master/Squid/squid.conf"
-sed -i $MYIP2 /etc/squid3/squid.conf
+wget -O /etc/squid/squid.conf "https://raw.githubusercontent.com/azroy369/Debain9/master/Squid/squid.conf"
+sed -i $MYIP2 /etc/squid/squid.conf
 service squid restart
 
 # Install WebMin
