@@ -3,14 +3,6 @@
 # ==================================================
 # Initializing Var
 
-wget -O - https://swupdate.openvpn.net/repos/repo-public.gpg|apt-key add -
-sleep 2
-echo "deb http://build.openvpn.net/debian/openvpn/release/2.4 stretch main" > /etc/apt/sources.list.d/openvpn-aptrepo.list
-echo "deb http://security.debian.org/ jessie/updates main contrib non-free" > /etc/apt/sources.list.d/openvpn-aptrepo.list
-echo "deb-src http://security.debian.org/ jessie/updates main contrib non-free" > /etc/apt/sources.list.d/openvpn-aptrepo.list
-echo "deb http://http.us.debian.org/debian jessie main contrib non-free" > /etc/apt/sources.list.d/openvpn-aptrepo.list
-echo "deb http://packages.dotdeb.org jessie all" > /etc/apt/sources.list.d/openvpn-aptrepo.list
-echo "deb-src http://packages.dotdeb.org jessie all" > /etc/apt/sources.list.d/openvpn-aptrepo.list
 #Requirement
 if [ ! -e /usr/bin/curl ]; then
     apt-get -y update && apt-get -y upgrade
@@ -53,11 +45,10 @@ apt-get -y  remove sendmail*;
 apt-get -y  remove bind9*;
 
 # Install Essential Packages
-apt-get install  unrar-free dnsutils dsniff stunnel4 squid3 openssl lsb-release scrot bmon iftop htop nmap axel sysv-rc-conf dnsutils bc nethogs less screen psmisc apt-file ptunnel ngrep mtr git zsh mrtg snmp snmpd  rsyslog debsums openvpn iptables nginx php7.0-fpm php7.0-cli stunnel4 squid3 dropbear easy-rsa vnstat ufw build-essential fail2ban zip traceroute rkhunter whois unzip -y
+apt-get install  unrar-free dnsutils dsniff stunnel4 squid3 easy-rsa openssl lsb-release scrot bmon iftop htop nmap axel dnsutils bc nethogs less screen psmisc apt-file -y
 
 # disable exim
 service exim4 stop
-sysv-rc-conf exim4 off
 
 # Update
 apt-get update -y 
@@ -95,19 +86,19 @@ service nginx restart
 # SSH Configuration
 cd
 sed -i '/Port 22/a Port 143' /etc/ssh/sshd_config
-sed -i '/Port 22/a Port  81' /etc/ssh/sshd_config
+sed -i '/Port 22/a Port  443' /etc/ssh/sshd_config
 sed -i 's/Port 22/Port  22/g' /etc/ssh/sshd_config
 service ssh restart
 
 #install OpenVPN
 cp -r /usr/share/easy-rsa/ /etc/openvpn
-mkdir /etc/openvpn/easy-rsa/keys
+mkdir /etc/openvpn/easy-rsa/keys/vars
 # replace bits
 sed -i 's|export KEY_COUNTRY="US"|export KEY_COUNTRY="MY"|' /etc/openvpn/easy-rsa/vars
 sed -i 's|export KEY_PROVINCE="CA"|export KEY_PROVINCE="AZROY"|' /etc/openvpn/easy-rsa/vars
 sed -i 's|export KEY_CITY="SanFrancisco"|export KEY_CITY="AZROY"|' /etc/openvpn/easy-rsa/vars
 sed -i 's|export KEY_ORG="Fort-Funston"|export KEY_ORG="AZROY"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_EMAIL="me@myhost.mydomain"|export KEY_EMAIL="faizkapak369@gmail.com"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_EMAIL="me@myhost.mydomain"|export KEY_EMAIL="AZROY"|' /etc/openvpn/easy-rsa/vars
 sed -i 's|export KEY_OU="MyOrganizationalUnit"|export KEY_OU="AZROY"|' /etc/openvpn/easy-rsa/vars
 sed -i 's|export KEY_NAME="EasyRSA"|export KEY_NAME="AZROY"|' /etc/openvpn/easy-rsa/vars
 sed -i 's|export KEY_OU=changeme|export KEY_OU=AZROY|' /etc/openvpn/easy-rsa/vars
